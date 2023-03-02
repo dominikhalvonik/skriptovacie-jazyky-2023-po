@@ -1,0 +1,63 @@
+/*najskôr skryjeme odpovede*/
+.accordion .answer{
+  display:none;
+}
+
+/*štýly pre zobrazené otázky*/
+.accordion.active .answer{
+    display:block;
+    background-color:#f7f7f7;
+    color:black;
+    padding:2%;
+}
+/*štýl pre otázky*/
+.question{
+background-color:#f7f7f7;
+color:black;
+padding:2%;
+}
+/*pred každú otázku vieme pomocou before pridať obsah*/
+.question::before {
+content: '+ ';
+}
+/*keď prejdem myšou nad otázku alebo ju zakliknem teda daný accordion bude aktívny*/
+.question:hover, 
+.accordion.active .question{
+background-color:#bfbcbc;
+cursor:pointer;
+}
+/*Keď je rozbalená otázka, dám tam -*/
+.accordion.active .question::before {
+content: '- ';
+}
+/*najskôr skryjeme odpovede*/
+.accordion .answer{
+  display:none;
+}
+/*štýly pre zobrazené otázky*/
+.accordion.active .answer{
+    display:block;
+    background-color:#f7f7f7;
+    color:black;
+    padding:2%;
+}
+/*štýl pre otázky*/
+.question{
+background-color:#f7f7f7;
+color:black;
+padding:2%;
+}
+/*pred každú otázku vieme pomocou before pridať obsah*/
+.question::before {
+content: '+ ';
+}
+/*keď prejdem myšou nad otázku alebo ju zakliknem teda daný accordion bude aktívny*/
+.question:hover, 
+.accordion.active .question{
+background-color:#bfbcbc;
+cursor:pointer;
+}
+/*Keď je rozbalená otázka, dám tam -*/
+.accordion.active .question::before {
+content: '- ';
+}
