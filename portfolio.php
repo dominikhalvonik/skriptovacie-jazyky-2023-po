@@ -5,7 +5,8 @@ include_once "parts/header.php"
 ?>
 <body>
 <?php
-include_once "parts/body_header.php"
+include_once "parts/body_header.php";
+$portfolio = preparePortfolio(2, 4);
 ?>
 
 <main>
@@ -15,34 +16,17 @@ include_once "parts/body_header.php"
         </div>
     </section>
     <section class="container">
-        <div class="row">
-          <div class="col-25 portfolio text-white text-center" id="portfolio-1">
-              Web stránka 1
-          </div>
-            <div class="col-25 portfolio text-white text-center" id="portfolio-2">
-                Web stránka 2
-            </div>
-            <div class="col-25 portfolio text-white text-center" id="portfolio-3">
-                Web stránka 3
-            </div>
-            <div class="col-25 portfolio text-white text-center" id="portfolio-4">
-                Web stránka 4
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-25 portfolio text-white text-center" id="portfolio-5">
-                Web stránka 5
-            </div>
-            <div class="col-25 portfolio text-white text-center" id="portfolio-6">
-                Web stránka 6
-            </div>
-            <div class="col-25 portfolio text-white text-center" id="portfolio-7">
-                Web stránka 7
-            </div>
-            <div class="col-25 portfolio text-white text-center" id="portfolio-8">
-                Web stránka 8
-            </div>
-        </div>
+        <?php
+        foreach ($portfolio as $row => $col) {
+            echo '<div class="row">';
+            foreach ($col as $index) {
+                echo '<div class="col-25 portfolio text-white text-center" id="portfolio-'.$index.'">
+                        Web stránka '.$index.'
+                      </div>';
+            }
+            echo '</div>';
+        }
+        ?>
     </section>
 
 </main>

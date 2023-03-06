@@ -2,7 +2,9 @@
 <html lang="sk">
 <?php include_once "parts/header.php"; ?>
 <body>
-    <?php include_once "parts/body_header.php"; ?>
+    <?php
+    include_once "parts/body_header.php";
+    ?>
   <main>
     <section class="banner">
         <div class="container text-white">
