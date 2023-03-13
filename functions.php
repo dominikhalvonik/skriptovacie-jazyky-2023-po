@@ -1,70 +1,70 @@
 <?php
 
-function getMenu(string $type): array
+namespace main;
+
+class Menu
 {
-    $menu = [];
+    private $filePath = "source/headerMenu.json";
 
-    $isValid = validateMenuType($type);
+    public function getMenu(string $type): array
+    {
+        $menu = [];
+        $isValid = $this->validateMenuType($type);
 
-    if($isValid) {
-        if($type === "header") {
-            $menu = [
-                'home' => [
-                    'path' => 'index.php',
-                    'name' => 'Domov',
-                ],
-                'portfolio' => [
-                    'path' => 'portfolio.php',
-                    'name' => 'Portfólio',
-                ],
-                'faq' => [
-                    'path' => 'qna.php',
-                    'name' => 'Q&A',
-                ],
-                'contact' => [
-                    'path' => 'kontakt.php',
-                    'name' => 'Kontakt',
-                ],
-            ];
+        if($isValid) {
+            if($type === "header") {
+                try {
+                    $menuJson = file_get_contents($this->filePath);
+                    $menu = json_decode($menuJson, true);
+                } catch (\Exception $exception) {
+                    //echo $exception->getMessage();
+                    $menu = [
+                        'home' => [
+                            'path' => 'index.php',
+                            'name' => 'Domov',
+                        ]
+                    ];
+                }
+            }
+        }
+
+        return $menu;
+    }
+
+    public function printMenu(array $menu)
+    {
+        foreach ($menu as $key => $menuItem) {
+            echo '<li><a href="'.$menuItem['path'].'">'.$menuItem['name'].'</a></li>';
         }
     }
 
-    return $menu;
-}
+    public function preparePortfolio(int $numberOfRows = 2, int $numberOfCols = 4): array
+    {
+        $portfolio = [];
+        $colIndex = 1;
 
-function printMenu(array $menu)
-{
-    foreach ($menu as $key => $menuItem) {
-        echo '<li><a href="'.$menuItem['path'].'">'.$menuItem['name'].'</a></li>';
-    }
-}
-
-function preparePortfolio(int $numberOfRows = 2, int $numberOfCols = 4): array
-{
-    $portfolio = [];
-    $colIndex = 1;
-
-    for ($i = 1; $i <= $numberOfRows; $i++) {
-        for ($j = 1; $j <= $numberOfCols; $j++) {
-            $portfolio[$i][] = $colIndex;
-            $colIndex++;
+        for ($i = 1; $i <= $numberOfRows; $i++) {
+            for ($j = 1; $j <= $numberOfCols; $j++) {
+                $portfolio[$i][] = $colIndex;
+                $colIndex++;
+            }
         }
+
+        return $portfolio;
     }
 
-    return $portfolio;
-}
+    private function validateMenuType(string $menuType): bool
+    {
+        $validTypes = [
+            'header',
+            'footer',
+            'main'
+        ];
 
-function validateMenuType(string $menuType): bool
-{
-    $validTypes = [
-        'header',
-        'footer',
-        'main'
-    ];
-
-    if(in_array($menuType, $validTypes)) {
-        return true;
-    } else {
-        return false;
+        if(in_array($menuType, $validTypes)) {
+            return true;
+        } else {
+            return false;
+        }
     }
 }

@@ -1,6 +1,11 @@
 <?php
 include_once "functions.php";
-$menu = getMenu("header");
+
+use main\Menu;
+
+$menuObj = new Menu();
+
+$menu = $menuObj->getMenu("header");
 ?>
 <header class="container main-header">
     <div class="logo-holder">
@@ -10,7 +15,7 @@ $menu = getMenu("header");
     <nav class="main-nav">
         <ul class="main-menu" id="main-menu container">
             <?php
-            printMenu($menu);
+            $menuObj->printMenu($menu);
             ?>
         </ul>
         <a class="hamburger" id="hamburger">

@@ -6,7 +6,7 @@ include_once "parts/header.php"
 <body>
 <?php
 include_once "parts/body_header.php";
-$portfolio = preparePortfolio(2, 4);
+$portfolio = $menuObj->preparePortfolio(2, 4);
 ?>
 
 <main>
