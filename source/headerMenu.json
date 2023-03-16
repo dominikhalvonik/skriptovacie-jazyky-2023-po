@@ -1,0 +1,18 @@
+{
+  "home": {
+    "name": "Domov",
+    "path": "index.php"
+  },
+  "portfolio": {
+    "name": "Portf\u00f3lio",
+    "path": "portfolio.php"
+  },
+  "qna": {
+    "name": "Q&A",
+    "path": "qna.php"
+  },
+  "kontakt": {
+    "name": "Kontakt",
+    "path": "kontakt.php"
+  }
+}

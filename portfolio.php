@@ -6,7 +6,13 @@ include_once "parts/header.php";
 <body>
 <?php
 include_once "parts/nav.php";
-$portfolio = preparePortfolio();
+
+if(isset($menuObj)) {
+   $portfolio = $menuObj->preparePortfolio();
+} else {
+    $portfolio = [];
+}
+
 ?>
 
 <main>
