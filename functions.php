@@ -43,7 +43,7 @@ class Menu
 
         try {
             //"mysql:host=localhost;dbname=sj-2023;port=3306"
-            $this->connection = new PDO("mysql:host=".$this->hostname.";dbname=".$this->dbName.";port=".$this->port, $this->username, $this->password);
+            $this->connection = new PDO("mysql:charset=utf8;host=".$this->hostname.";dbname=".$this->dbName.";port=".$this->port, $this->username, $this->password);
         } catch (\Exception $exception) {
             echo $exception->getMessage();
             die();
@@ -66,6 +66,7 @@ class Menu
                         $menu[$menuItem['sys_name']] = [
                             'path' => $menuItem['path'],
                             'name' => $menuItem['user_name'],
+                            'id' => $menuItem['id']
                         ];
                     }
 
@@ -84,6 +85,39 @@ class Menu
         }
 
         return $menu;
+    }
+
+    public function insertMenuItem(string $sysName, string $userName, string $path): bool
+    {
+        $insert = false;
+        $sql = "INSERT INTO menu(sys_name, user_name, path) 
+                VALUES ('".$sysName."', '".$userName."', '".$path."')";
+
+        try {
+            $statment = $this->connection->prepare($sql);
+            $insert = $statment->execute();
+        } catch (\Exception $exception) {
+            echo "Unable to insert value. Error: " . $exception->getMessage();
+        }
+
+        return $insert;
+
+    }
+
+    public function deleteMenuItem(int $id): bool
+    {
+        $delete = false;
+        $sql = "DELETE FROM menu WHERE id = ".$id;
+
+        try {
+            $statment = $this->connection->prepare($sql);
+            $delete = $statment->execute();
+        } catch (\Exception $exception) {
+            echo "Unable to delete value. Error: " . $exception->getMessage();
+        }
+
+        return $delete;
+
     }
 
     public function printMenu(array $menu)
