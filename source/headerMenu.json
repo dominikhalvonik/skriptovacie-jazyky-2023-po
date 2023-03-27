@@ -14,9 +14,5 @@
   "contact": {
     "path": "kontakt.php",
     "name": "Kontakt"
-  },
-  "contact2": {
-    "path": "kontakt2.php",
-    "name": "Kontakt2"
   }
 }
