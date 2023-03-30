@@ -46,7 +46,7 @@ class Menu
 
         try {
             $this->connection = new PDO(
-                'mysql:host='.$this->host.';dbname='.$this->dbName.";port=".$this->port,
+                'mysql:charset=utf8;host='.$this->host.';dbname='.$this->dbName.";port=".$this->port,
                 $this->username,
                 $this->password
             );
@@ -73,7 +73,8 @@ class Menu
                     foreach ($menuData as $menuItem) {
                         $menu[$menuItem['sys_name']] = [
                             'name' => $menuItem['user_name'],
-                            'path' => $menuItem['path']
+                            'path' => $menuItem['path'],
+                            'id' => $menuItem['id']
                         ];
                     }
                 } catch (\Exception $exception) {
@@ -83,6 +84,31 @@ class Menu
         }
 
         return $menu;
+    }
+
+    public function insertMenuItem(string $sysName, string $userName, string $path): bool
+    {
+        $sql = "INSERT INTO menu (sys_name, user_name, path) 
+                VALUE ('".$sysName."', '".$userName."', '".$path."')";
+        $statement = $this->connection->prepare($sql);
+        try {
+            $insert = $statement->execute();
+            return $insert;
+        } catch (\Exception $exception) {
+            return false;
+        }
+    }
+
+    public function deleteMenuItem(int $id): bool
+    {
+        $sql = "DELETE FROM menu WHERE id = ".$id;
+        $statement = $this->connection->prepare($sql);
+        try {
+            $delete = $statement->execute();
+            return $delete;
+        } catch (\Exception $exception) {
+            return false;
+        }
     }
 
     public function printMenu(array $menu)
