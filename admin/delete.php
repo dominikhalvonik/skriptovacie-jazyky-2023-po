@@ -1,4 +1,5 @@
 <?php
+include_once "auth_check.php";
 include_once "../functions.php";
 
 use main\Menu;

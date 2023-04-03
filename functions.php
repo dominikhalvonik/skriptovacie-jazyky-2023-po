@@ -62,6 +62,13 @@ class Menu
                     $query = $this->connection->query($sql);
                     $menuItems = $query->fetchAll(PDO::FETCH_ASSOC);
 
+                    /*
+                     * Alternativa fetchAll
+                     *
+                     * while($row = $query->fetch(PDO::FETCH_ASSOC)) { }
+                     *
+                     */
+
                     foreach ($menuItems as $menuItem) {
                         $menu[$menuItem['sys_name']] = [
                             'path' => $menuItem['path'],
@@ -155,5 +162,44 @@ class Menu
         } else {
             return false;
         }
+    }
+
+    public function getMenuItem(int $id): array
+    {
+        try {
+            $sql = "SELECT * FROM menu WHERE id = " . $id;
+            $query = $this->connection->query($sql);
+            $data = $query->fetch(PDO::FETCH_ASSOC);
+
+            return $data;
+        } catch (\Exception $exception) {
+            return [];
+        }
+    }
+
+    public function updateMenuItem(int $id, string $sysName, string $userName, string $path): bool
+    {
+        try {
+            $sql = "UPDATE menu SET sys_name = :sys, user_name = :user, path = :path WHERE id = :id";
+            $statement = $this->connection->prepare($sql);
+            $statement->bindValue('sys', $sysName);
+            $statement->bindValue('user', $userName);
+            $statement->bindValue('path', $path);
+            $statement->bindValue('id', $id);
+            $update = $statement->execute();
+            /*
+            $update = $statement->execute([
+                'sys' => $sysName,
+                'user' => $userName,
+                'path' => $path,
+                'id' => $id,
+            ]);
+            */
+        } catch (\Exception $exception) {
+            $update = false;
+        }
+
+        return $update;
+
     }
 }

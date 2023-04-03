@@ -1,4 +1,5 @@
 <?php
+include_once "auth_check.php";
 include_once "../functions.php";
 
 use main\Menu;
@@ -13,6 +14,7 @@ if(isset($_POST['submit'])) {
         echo "Unable to insert values";
     }
 } else {
+    include_once "html_menu.php";
     if(isset($_GET['status']) && $_GET['status'] == 1) {
         echo "<strong>Value inserted</strong><br><br>";
     }
