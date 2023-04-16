@@ -4,8 +4,6 @@ include_once "../classes/Auth.php";
 
 use ukf\classes\Auth;
 
-var_dump($_SESSION);
-
 if(isset($_POST['submit'])) {
     $auth = new Auth();
     $login = $auth->login($_POST['username'], $_POST['password']);
