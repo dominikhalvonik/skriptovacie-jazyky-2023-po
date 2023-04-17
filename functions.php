@@ -202,4 +202,18 @@ class Menu
         return $update;
 
     }
+
+    public function getPortfolio(): array
+    {
+        try {
+            $sql = "SELECT * FROM portfolio";
+            $query = $this->connection->query($sql);
+            $portfolio = $query->fetchAll(PDO::FETCH_ASSOC);
+
+            return $portfolio;
+        } catch (\Exception $exception) {
+            echo $exception->getMessage();
+            return [];
+        }
+    }
 }
