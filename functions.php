@@ -68,6 +68,12 @@ class Menu
 
                     $sql = "SELECT * FROM menu";
                     $query = $this->connection->query($sql);
+
+                    /**
+                     * Alternativa k fetchAll
+                     * while($row = $query->fetch(PDO::FETCH_ASSOC)) { }
+                     */
+
                     $menuData = $query->fetchAll(PDO::FETCH_ASSOC);
 
                     foreach ($menuData as $menuItem) {
@@ -146,6 +152,34 @@ class Menu
         }
 
         return $portfolio;
+    }
+
+    public function getMenuItem(int $id): array
+    {
+        try {
+            $sql = "SELECT * FROM menu WHERE id = ". $id;
+            $query = $this->connection->query($sql);
+            $menuItem = $query->fetch(PDO::FETCH_ASSOC);
+
+            return $menuItem;
+        } catch (\Exception $exception) {
+            echo $exception->getMessage();
+            return [];
+        }
+    }
+
+    public function updateMenuItem(int $id, string $sysName, string $userName, string $path): bool
+    {
+        $sql = "UPDATE menu 
+                SET sys_name = '".$sysName."', user_name = '".$userName."', path = '".$path."' 
+                WHERE id = ".$id;
+        $statement = $this->connection->prepare($sql);
+        try {
+            $update = $statement->execute();
+            return $update;
+        } catch (\Exception $exception) {
+            return false;
+        }
     }
 }
 

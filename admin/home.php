@@ -1,4 +1,5 @@
 <?php
+include_once "auth_check.php";
 include_once "../functions.php";
 
 use ukf\Menu;
@@ -28,12 +29,14 @@ if (isset($_POST['submit'])) {
             User name: " . $menuItem['name'] . ", 
             URL: " . $menuItem['path'] . "
             <a href='delete.php?id=" . $menuItem['id'] . "'>Delete</a>
+            <a href='update.php?id=" . $menuItem['id'] . "'>Update</a>
             </li>";
     }
 
     echo "</ul>";
     ?>
-
+        <br><br><br>
+        <a href="logout.php">Logout</a>
     <br><br><br>
     <form action="home.php" method="post">
         System name:<br>
